@@ -1,0 +1,29 @@
+<head>
+  <meta charset="utf-8">
+  <title>Tweeteor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meteor sample tweet toy">
+  <meta name="author" content="Mike bannister">
+</head>
+
+<body>
+  <div class="container">
+    {{> public_timeline}}
+  </div>
+</body>
+
+<template name="public_timeline">
+  <div class="public_timeline">
+    <h1>Public Twitter Timeline</h1>
+    {{#if updatedAt}}
+      <p><em>
+        <div id="updatedAt" data-updated-at="{{updatedAt}}"></div>
+      </em></p>
+    {{/if}}
+    <div class="well">
+      {{#each tweets}}
+        <p><strong>{{created_at}}</strong> {{text}}</p>
+      {{/each}}
+    </div>
+  </div>
+</template>

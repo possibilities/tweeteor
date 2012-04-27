@@ -1,11 +1,21 @@
 Tweets = new Meteor.Collection('tweets');
 Meteor.subscribe('tweets');
 
+Stats = new Meteor.Collection('stats');
+Meteor.subscribe('stats');
+
 Template.public_timeline.tweets = function () {
-  var tweets =  Tweets.find({});
-  return tweets;
+  return Tweets.find({}).fetch();
 };
 
-Template.public_timeline.updated_at = function() {
-  return 'TODO';
+var updatedAt = function() {
+  var stats = Stats.findOne({ name: 'stats' });
+  if (stats && stats.updatedAt) return stats.updatedAt;
 };
+Template.public_timeline.updatedAt = updatedAt;
+
+var showFriendlyTime = function() {
+  $('#updatedAt').text(humanized_time_span(updatedAt(), new Date));
+};
+
+Meteor.setInterval(showFriendlyTime, 1500);
