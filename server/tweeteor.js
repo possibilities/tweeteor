@@ -11,3 +11,20 @@ Meteor.publish("tweets", function () {
 });
 
 var twitter = new Twitter();
+
+var loadPublicTimeline = function() {
+  try {
+    var timeline = twitter.publicTimeline();
+    _.each(timeline, function(tweet) {
+      tweet.created_at_stamp = new Date(tweet.created_at).getTime();
+      Tweets.insert(tweet);
+    });
+    console.log("Got " + timeline.length + " new tweets.");
+    Meteor.setTimeout(loadPublicTimeline, fastTimeout);
+  } catch (err) {
+    console.log("Error, slowing shit down.", err);
+    Meteor.setTimeout(loadPublicTimeline, slowTimeout);
+  }
+};
+
+Meteor.startup(loadPublicTimeline);
