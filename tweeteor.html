@@ -16,14 +16,34 @@
   <div class="public_timeline">
     <h1>Public Twitter Timeline</h1>
     {{#if updatedAt}}
-      <p><em>
-        <div id="updatedAt" data-updated-at="{{updatedAt}}"></div>
-      </em></p>
+      <p>
+        <em>Last updated <span id="updatedAt" data-updated-at="{{updatedAt}}">{{timeAgoFormat updatedAt}}</span></em>
+      </p>
     {{/if}}
     <div class="well">
-      {{#each tweets}}
-        <p><strong>{{created_at}}</strong> {{text}}</p>
-      {{/each}}
+      <table>
+        <tbody>
+          {{#each tweets}}
+            <tr class="tweet">
+              <td class="avatar">
+                {{#with user}}
+                  <img src="{{profile_image_url}}" />
+                {{/with}}
+              </td>
+              <td class="content">
+                {{#with user}}
+                  <p class="header">
+                    <span class="userName">{{name}}</span>
+                    <span class="screenName">@{{screen_name}}</span>
+                  </p>
+                {{/with}}
+                <p class="message">{{text}}</p>
+              </td>
+              <!-- <p><strong>{{timeAgoFormat created_at}}</strong> </p> -->
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
   </div>
 </template>

@@ -1,8 +1,3 @@
-Tweets = new Meteor.Collection("tweets");
-Stats = new Meteor.Collection("stats");
-
-var timeout = 60 * 1000;
-
 Meteor.publish("tweets", function () {
   return Tweets.find({}, { sort: { created_at_stamp: -1 }, limit: 20 });
 });
@@ -11,6 +6,7 @@ Meteor.publish("stats", function () {
   return Stats.find({});
 });
 
+var timeout = 60 * 1000;
 var twitter = new Twitter();
 
 var setStat = function(name, value) {
@@ -37,7 +33,6 @@ var getStat = function(name) {
 };
 
 var loadPublicTimeline = function() {
-  console.log(1);
   try {
     var timeline = twitter.publicTimeline();
     _.each(timeline, function(tweet) {
@@ -45,11 +40,10 @@ var loadPublicTimeline = function() {
       Tweets.insert(tweet);
     });
     setStat('updatedAt', new Date);
-    console.log('finished', timeline.length);
+    // console.log('finished', timeline[0]);
   } catch (err) {
-    console.log('erred', timeline.length);
+    // console.log('erred', timeline.length);
   }
-  
 };
 
 Meteor.startup(function() {
