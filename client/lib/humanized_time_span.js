@@ -25,6 +25,7 @@ function humanized_time_span(date, ref_date, date_formats, time_units) {
   //Date Formats must be be ordered smallest -> largest and must end in a format with ceiling of null
   date_formats = date_formats || {
     past: [
+      { ceiling: 1, text: "just now" },
       { ceiling: 60, text: "$seconds seconds ago" },
       { ceiling: 3600, text: "$minutes minutes ago" },
       { ceiling: 86400, text: "$hours hours ago" },
