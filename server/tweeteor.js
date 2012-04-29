@@ -1,7 +1,7 @@
 var timeout = 61 * 1000;
 var twitter = new Twitter();
 
-var streamPublicTimeline = function() {
+var fetchPublicTimeline = function() {
   try {
     var timeline = twitter.publicTimeline();
     _.each(timeline, function(tweet) {
@@ -16,5 +16,5 @@ var streamPublicTimeline = function() {
 };
 
 Meteor.startup(function() {
-  runMethodEvery(streamPublicTimeline, timeout);
+  runMethodEvery(fetchPublicTimeline, timeout);
 });
