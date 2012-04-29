@@ -4,6 +4,7 @@ var twitter = new Twitter();
 var fetchPublicTimeline = function() {
   try {
     var timeline = twitter.publicTimeline();
+    if (timeline.length > 0) Tweets.remove({});
     _.each(timeline, function(tweet) {
       tweet.created_at_stamp = new Date(tweet.created_at).getTime();
       Tweets.insert(tweet);
