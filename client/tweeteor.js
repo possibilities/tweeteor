@@ -8,6 +8,10 @@ Template.public_timeline.updatedAt = function() {
 };
 
 Handlebars.registerHelper('timeAgoFormat', function(dateString) {
+  var time = new Date(dateString);
+  // meteor.com server time drifts into the future
+  // for now don't mess with times from the future
+  if (time > new Date) time = new Date;
   return humanized_time_span(new Date(dateString));
 });
 
