@@ -1,12 +1,3 @@
-
-Meteor.startup(function() {
-  _.each(['appData', 'tweets'], function(collection) {
-    _.each(['insert', 'update', 'remove'], function(method) {
-      Meteor.default_server.method_handlers['/' + collection + '/' + method] = function() {};
-    });
-  });
-});
-
 var timeout = 61 * 1000;
 var twitter = new Twitter();
 

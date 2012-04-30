@@ -17,6 +17,8 @@ if (Meteor.is_server) {
   Meteor.publish('appData', function () {
     return AppData.find({});
   });
+  
+  SimpleSecure.noDataMagic();
 }
 
 // Setup client data subscriptions on server
